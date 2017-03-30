@@ -54,13 +54,17 @@ export class Trace {
     defaults = getDefaults ();
   }
 
-  static clear (name) {
-    if (name && defaults[name]) {
-      defaults[name] = [];
-    } else if (name) {
-      throw new TypeError (`${name} is not an interceptable method name`);
-    } else {
+  static clear (...names) {
+    if (arguments.length === 0) {
       defaults = getEmptyDefaults ();
+    } else {
+      names.forEach (name => {
+        if (name && defaults[name]) {
+          defaults[name] = [];
+        } else if (name) {
+          throw new TypeError (`${name} is not an interceptable method name`);
+        }
+      });
     }
   }
 

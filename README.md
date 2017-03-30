@@ -15,6 +15,7 @@ The user of `Trace` can reconfigure the tracing:
 * `clear()` &rarr; clears all forwarding, making calls to `log()`, etc. equivalent
   to a no-op.
 * `clear(name)` &rarr; clears the _named_ call; this replaces it with a no-op.
+* `clear(name1, name2, ...)` &rarr; clears multiple named calls.
 
 ## How to use
 

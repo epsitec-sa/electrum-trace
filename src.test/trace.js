@@ -1,11 +1,17 @@
-/* global describe it */
+/* global describe it beforeEach afterEach */
 
 import {expect} from 'mai-chai';
 import {Trace} from 'electrum-trace';
 
+const saveLog = console.log;
+
 /******************************************************************************/
 
 describe ('Trace', () => {
+
+  beforeEach (() => Trace.reset ());
+  afterEach (() => console.log = saveLog);
+
   describe ('class', () => {
     it ('contains static implementation of log()', () => {
       expect (Trace.log).to.be.function ();
@@ -29,32 +35,19 @@ describe ('Trace', () => {
 
   describe ('method calls', () => {
     it ('log() calls console.log()', () => {
-      const saveLog = console.log;
       let output;
-      console.log = text => {
-        output = text;
-      };
+      console.log = text => output = text;
       Trace.log ('hello');
       expect (output).to.equal ('hello');
-      console.log = saveLog;
     });
   });
 
   describe ('intercept()', () => {
     it ('intercepts Trace.log()', () => {
-      const saveLog = console.log;
-      let output1;
-      let output2;
-      console.log = text => {
-        output1 = text;
-      };
-      Trace.intercept ('log', text => {
-        output2 = text;
-      });
+      let output1, output2;
+      console.log = text => output1 = text;
+      Trace.intercept ('log', text => output2 = text);
       Trace.log ('hello');
-
-      console.log = saveLog;
-
       expect (output1).to.equal ('hello');
       expect (output2).to.equal ('hello');
     });
@@ -62,40 +55,31 @@ describe ('Trace', () => {
       expect (() => Trace.intercept ('foo')).to.throw ();
     });
     it ('then reset() restores Trace.log()', () => {
-      const saveLog = console.log;
-      let output1;
-      let output2;
-      console.log = text => {
-        output1 = text;
-      };
-      Trace.intercept ('log', text => {
-        output2 = text;
-      });
+      let output1, output2;
+      console.log = text => output1 = text;
+      Trace.intercept ('log', text => output2 = text);
       Trace.reset ();
       Trace.log ('hello');
-
-      console.log = saveLog;
-
       expect (output1).to.equal ('hello');
       expect (output2).to.be.undefined ();
     });
     it ('then clear() removes any logging from Trace.log()', () => {
-      const saveLog = console.log;
-      let output1;
-      let output2;
-      console.log = text => {
-        output1 = text;
-      };
-      Trace.intercept ('log', text => {
-        output2 = text;
-      });
+      let output1, output2;
+      console.log = text => output1 = text;
+      Trace.intercept ('log', text => output2 = text);
       Trace.clear ();
       Trace.log ('hello');
-
-      console.log = saveLog;
-
       expect (output1).to.be.undefined ();
       expect (output2).to.be.undefined ();
+    });
+    it ('then clear("info", "errror") does not remove logging from Trace.log()', () => {
+      let output1, output2;
+      console.log = text => output1 = text;
+      Trace.intercept ('log', text => output2 = text);
+      Trace.clear ('info', 'error');
+      Trace.log ('hello');
+      expect (output1).to.equal ('hello');
+      expect (output2).to.equal ('hello');
     });
   });
 });
