@@ -1,6 +1,6 @@
 {
   "name": "electrum-trace",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Electrum Trace provides a logging abstraction.",
   "main": "lib/index.js",
   "scripts": {
@@ -18,9 +18,9 @@
   "license": "MIT",
   "homepage": "https://github.com/epsitec-sa/electrum-trace#readme",
   "devDependencies": {
-    "babel-env": "^1.5.1",
+    "babel-env": "^1.6.0",
     "chokidar-cli": "^1.2.0",
-    "generic-js-env": "^1.9.1",
+    "generic-js-env": "^1.9.2",
     "mai-chai": "^3.3.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
