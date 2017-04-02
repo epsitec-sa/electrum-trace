@@ -5,11 +5,11 @@
 
 function getDefaults () {
   let defaults = {};
-  defaults.log   = [(...args) => console.log.apply (console, args)];
-  defaults.info  = [(...args) => console.info.apply (console, args)];
-  defaults.warn  = [(...args) => console.warn.apply (console, args)];
-  defaults.error = [(...args) => console.error.apply (console, args)];
-  defaults.dir   = [(...args) => console.dir.apply (console, args)];
+  defaults.log   = [ (...args) => console.log.apply (console, args) ];
+  defaults.info  = [ (...args) => console.info.apply (console, args) ];
+  defaults.warn  = [ (...args) => console.warn.apply (console, args) ];
+  defaults.error = [ (...args) => console.error.apply (console, args) ];
+  defaults.dir   = [ (...args) => console.dir.apply (console, args) ];
   return defaults;
 }
 

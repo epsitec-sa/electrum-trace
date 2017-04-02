@@ -1,12 +1,13 @@
 {
   "name": "electrum-trace",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Electrum Trace provides a logging abstraction.",
   "main": "lib/index.js",
   "scripts": {
     "babel": "babel --quiet --out-dir lib src && babel --quiet --out-dir lib.test src.test",
     "clean": "rimraf ./lib && rimraf ./lib.test",
-    "compile": "npm run clean && require-self && npm run babel",
+    "compile": "npm run clean && require-self && npm run eslint && npm run babel",
+    "eslint": "eslint src src.test",
     "rebuild": "npm run babel",
     "mocha": "mocha lib.test/**/*.js",
     "prepublish": "npm run compile",
@@ -18,9 +19,9 @@
   "license": "MIT",
   "homepage": "https://github.com/epsitec-sa/electrum-trace#readme",
   "devDependencies": {
-    "babel-env": "^1.6.0",
+    "babel-env": "^2.3.1",
     "chokidar-cli": "^1.2.0",
-    "generic-js-env": "^1.9.2",
+    "generic-js-env": "^2.2.0",
     "mai-chai": "^3.3.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
